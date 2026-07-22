@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gray-950 text-gray-100 antialiased selection:bg-coffee-500/30 selection:text-coffee-300;
+  }
+}
+
+@layer components {
+  /* Cards */
+  .glass-card {
+    @apply bg-gray-900/40 backdrop-blur-xl border border-white/5 rounded-[24px] shadow-xl shadow-black/20;
+  }
+
+  .stat-card {
+    @apply bg-gradient-to-br border rounded-[28px] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:bg-white/5;
+  }
+
+  /* Inputs */
+  .input-field {
+    @apply w-full px-4 py-3 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-gray-500
+           focus:outline-none focus:ring-2 focus:ring-coffee-500/40 focus:border-transparent
+           transition-all duration-300 text-sm;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply w-full py-3.5 px-6 bg-gradient-to-r from-coffee-500 to-orange-600
+           hover:from-coffee-400 hover:to-orange-500
+           text-white font-bold rounded-2xl
+           transform transition-all duration-300
+           hover:scale-[1.01] hover:shadow-lg hover:shadow-coffee-500/15
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
+           focus:outline-none focus:ring-2 focus:ring-coffee-500/40 focus:ring-offset-2 focus:ring-offset-transparent;
+  }
+
+  .btn-secondary {
+    @apply py-2.5 px-5 bg-white/5 hover:bg-white/10 border border-white/10
+           text-gray-200 font-semibold rounded-2xl
+           transition-all duration-300
+           focus:outline-none focus:ring-2 focus:ring-white/20;
+  }
+
+  .btn-danger {
+    @apply py-2.5 px-5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20
+           text-red-400 font-semibold rounded-2xl transition-all duration-300
+           focus:outline-none focus:ring-2 focus:ring-red-500/20;
+  }
+
+  /* Navigation */
+  .sidebar-item {
+    @apply flex items-center gap-3.5 px-4 py-3 rounded-2xl text-gray-400
+           hover:bg-white/5 hover:text-white border border-transparent
+           transition-all duration-300 cursor-pointer;
+  }
+
+  .sidebar-item.active {
+    @apply bg-gradient-to-r from-coffee-500/15 to-coffee-600/5 text-coffee-400 border border-coffee-500/30
+           shadow-[0_0_15px_-3px_rgba(212,130,26,0.15)];
+  }
+
+  /* Tables */
+  .table-container {
+    @apply bg-gray-900/20 backdrop-blur-xl border border-white/5 rounded-3xl overflow-hidden shadow-xl shadow-black/10;
+  }
+
+  .table-th {
+    @apply px-6 py-4 text-coffee-400 font-bold uppercase tracking-wider text-[11px] border-b border-white/5 bg-gray-900/40;
+  }
+
+  .table-tr {
+    @apply hover:bg-white/5 border-b border-white/5 transition-all duration-200;
+  }
+
+  .table-td {
+    @apply px-6 py-4 text-gray-300 text-sm align-middle;
+  }
+
+  /* Badges & Labels */
+  .badge-label {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-xl border transition-all;
+  }
+
+  /* Modals */
+  .modal-backdrop {
+    @apply fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto animate-fade-in;
+  }
+
+  .modal-content {
+    @apply bg-gray-950/90 border border-white/5 rounded-3xl p-8 w-full max-w-md my-4 
+           shadow-2xl shadow-black/85 animate-slide-up backdrop-blur-2xl;
+  }
+
+  .error-text {
+    @apply text-red-400 text-xs mt-1.5 font-medium;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 130, 26, 0.15);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 130, 26, 0.3);
+}
+
