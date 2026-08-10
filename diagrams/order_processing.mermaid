@@ -1,0 +1,23 @@
+flowchart TD
+    subgraph POS [Tại quầy]
+        A1[Staff chọn bàn AVAILABLE] --> A2[Tạo Order POS - PENDING]
+        A2 --> A3[Thêm món & số lượng]
+        A3 --> A4[Xác nhận đơn - CONFIRMED]
+    end
+
+    subgraph ONLINE [Trực tuyến]
+        B1[Khách đăng nhập Portal] --> B2[Chọn món vào giỏ hàng]
+        B2 --> B3[Xác nhận đặt hàng]
+        B3 --> B4[Tạo Order ONLINE - PENDING]
+        B4 --> B5[Staff CMS xác nhận]
+        B5 --> A4
+    end
+
+    A4 --> C[Pha chế - PREPARING]
+    C --> D[Sẵn sàng phục vụ - READY]
+    D --> E[Đã phục vụ - SERVED]
+    E --> F[Khách yêu cầu thanh toán]
+    F --> G[Tạo Payment]
+    G --> H[Thanh toán thành công - PAID]
+    H --> I[Order COMPLETED & Bàn CLEANING]
+    I --> J[Dọn dẹp xong - Bàn AVAILABLE]

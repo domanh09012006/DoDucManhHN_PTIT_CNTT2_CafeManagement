@@ -1,0 +1,34 @@
+sequenceDiagram
+    autonumber
+    actor User as Người dùng
+    participant FE as Frontend React
+    participant Gateway as Spring Security Gateway
+    participant JwtService as JwtService
+    participant DB as CSDL MySQL
+
+    User->>FE: Nhập username + password
+    FE->>Gateway: POST /api/auth/login
+    Gateway->>DB: Truy vấn user theo username
+    DB-->>Gateway: Trả về thông tin user (mật khẩu BCrypt)
+    Gateway->>Gateway: So khớp mật khẩu bằng BCrypt
+    alt Khớp thông tin
+        Gateway->>JwtService: Tạo JWT Access Token (role, username)
+        JwtService-->>Gateway: Trả về JWT Token string
+        Gateway-->>FE: HTTP 200 {success: true, token, userInfo}
+        FE->>FE: Lưu token vào localStorage
+    else Sai thông tin
+        Gateway-->>FE: HTTP 401 {success: false, message: "Sai tài khoản/mật khẩu"}
+    end
+
+    Note over User, DB: Các request tiếp theo gửi Token trong Header
+    FE->>Gateway: GET /api/tables (Header: Authorization: Bearer token)
+    Gateway->>JwtService: Xác thực và giải mã token
+    JwtService-->>Gateway: Token hợp lệ + User role
+    Gateway->>Gateway: Kiểm tra phân quyền @PreAuthorize
+    alt Có quyền truy cập
+        Gateway->>DB: Truy vấn dữ liệu bàn
+        DB-->>Gateway: Trả về dữ liệu
+        Gateway-->>FE: HTTP 200 {success: true, data: [...]}
+    else Không có quyền
+        Gateway-->>FE: HTTP 403 {success: false, message: "Không có quyền truy cập"}
+    end

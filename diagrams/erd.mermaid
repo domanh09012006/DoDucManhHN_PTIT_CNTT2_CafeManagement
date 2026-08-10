@@ -1,0 +1,104 @@
+erDiagram
+    users {
+        bigint id PK
+        varchar username UK
+        varchar password
+        varchar full_name
+        varchar email UK
+        varchar phone
+        enum role
+        enum status
+        datetime created_at
+    }
+    cafe_tables {
+        bigint id PK
+        varchar table_number UK
+        varchar area
+        int capacity
+        enum status
+        varchar qr_code_url
+    }
+    categories {
+        bigint id PK
+        varchar name UK
+        text description
+        tinyint active
+    }
+    products {
+        bigint id PK
+        varchar name
+        decimal price
+        decimal cost_price
+        bigint category_id FK
+        enum status
+    }
+    orders {
+        bigint id PK
+        varchar order_code UK
+        bigint table_id FK
+        bigint user_id FK
+        enum status
+        enum order_source
+        decimal total_amount
+    }
+    order_items {
+        bigint id PK
+        bigint order_id FK
+        bigint product_id FK
+        int quantity
+        decimal unit_price
+        decimal subtotal
+    }
+    payments {
+        bigint id PK
+        varchar payment_code UK
+        bigint order_id FK
+        bigint cashier_id FK
+        enum method
+        enum status
+        decimal amount
+    }
+    reservations {
+        bigint id PK
+        bigint table_id FK
+        bigint user_id FK
+        datetime reservation_time
+        int number_of_guests
+        enum status
+        varchar contact_name
+        varchar contact_phone
+    }
+    suppliers {
+        bigint id PK
+        varchar name UK
+        varchar phone
+        varchar email
+    }
+    ingredients {
+        bigint id PK
+        varchar name UK
+        varchar unit
+        decimal current_stock
+        decimal min_stock_level
+        bigint supplier_id FK
+    }
+    inventory_transactions {
+        bigint id PK
+        bigint ingredient_id FK
+        enum type
+        decimal quantity
+        decimal unit_cost
+        datetime created_at
+    }
+
+    users ||--o{ orders : "creates"
+    users ||--o{ reservations : "books"
+    users ||--o{ payments : "cashier"
+    cafe_tables ||--o{ orders : "has"
+    cafe_tables ||--o{ reservations : "assigned"
+    categories ||--o{ products : "contains"
+    orders ||--o{ order_items : "includes"
+    products ||--o{ order_items : "in"
+    orders ||--|| payments : "paid_by"
+    suppliers ||--o{ ingredients : "supplies"
+    ingredients ||--o{ inventory_transactions : "tracked"

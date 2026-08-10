@@ -1,0 +1,38 @@
+graph TB
+    subgraph Actors
+        Admin[ADMIN]
+        Manager[MANAGER]
+        Cashier[CASHIER]
+        Customer[CUSTOMER]
+    end
+
+    subgraph Auth_Module [Authentication]
+        UC01[Đăng nhập]
+        UC02[Đăng xuất]
+        UC03[Đăng ký thành viên]
+        UC04[Xem/Sửa hồ sơ]
+    end
+
+    subgraph CMS [CMS Admin Portal]
+        UC05[Quản lý Users]
+        UC06[Quản lý Bàn]
+        UC07[Quản lý Sản phẩm]
+        UC08[Quản lý Kho]
+        UC09[Quản lý Nhà cung cấp]
+        UC10[Quản lý Khách hàng]
+        UC11[Gọi món tại quầy POS]
+        UC12[Thanh toán hóa đơn]
+        UC13[Dashboard & Báo cáo doanh thu]
+    end
+
+    subgraph Customer_Portal [Customer Portal]
+        UC14[Xem thực đơn online]
+        UC15[Đặt hàng ONLINE]
+        UC16[Đặt bàn trực tuyến]
+        UC17[Xem lịch sử đặt bàn/đơn hàng]
+    end
+
+    Admin --> UC01 & UC02 & UC04 & UC05 & UC06 & UC07 & UC08 & UC09 & UC10 & UC11 & UC12 & UC13
+    Manager --> UC01 & UC02 & UC04 & UC06 & UC07 & UC08 & UC09 & UC10 & UC11 & UC12 & UC13
+    Cashier --> UC01 & UC02 & UC04 & UC06 & UC11 & UC12 & UC16
+    Customer --> UC01 & UC02 & UC03 & UC04 & UC14 & UC15 & UC16 & UC17

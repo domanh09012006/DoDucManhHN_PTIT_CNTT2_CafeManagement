@@ -1,0 +1,10 @@
+stateDiagram-v2
+    [*] --> PENDING : Khách đặt bàn online
+    PENDING --> CONFIRMED : Staff phê duyệt đặt bàn
+    PENDING --> CANCELLED : Khách hủy hoặc Staff từ chối
+    CONFIRMED --> CHECKED_IN : Khách đến nhận bàn (Staff check-in)
+    CONFIRMED --> CANCELLED : Khách không đến / Hủy sau khi duyệt
+    CHECKED_IN --> COMPLETED : Hoàn thành lượt dùng (Thanh toán xong)
+    CHECKED_IN --> CANCELLED : Sự cố phát sinh cần hủy
+    COMPLETED --> [*]
+    CANCELLED --> [*]

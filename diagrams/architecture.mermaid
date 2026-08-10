@@ -1,0 +1,28 @@
+graph TD
+    subgraph Client [Client Layer]
+        CP[Customer Portal - React SPA]
+        AP[CMS Admin Portal - React SPA]
+    end
+
+    subgraph API [API Gateway / Security]
+        HTTPS[HTTP / REST API]
+        JWT[Spring Security JWT Authentication]
+    end
+
+    subgraph Server [Backend Service Layer]
+        C[Controller Layer - 12 Controllers]
+        S[Service Layer - Business Logic]
+        R[Repository Layer - Spring Data JPA]
+    end
+
+    subgraph Database [Data Layer]
+        MySQL[(MySQL 8.x DB)]
+    end
+
+    CP -->|REST API + JWT| HTTPS
+    AP -->|REST API + JWT| HTTPS
+    HTTPS --> JWT
+    JWT --> C
+    C --> S
+    S --> R
+    R --> MySQL

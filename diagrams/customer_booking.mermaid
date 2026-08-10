@@ -1,0 +1,15 @@
+flowchart TD
+    A[Khách truy cập Portal] --> B[Chọn Đặt bàn trực tuyến]
+    B --> C[Nhập thời gian, số lượng khách, liên hệ]
+    C --> D[Gửi yêu cầu đặt bàn]
+    D --> E[Tạo Reservation PENDING]
+    E --> F[Hệ thống hiển thị trên CMS Admin]
+    F --> G{Staff duyệt?}
+    G -->|Đồng ý| H[Reservation CONFIRMED]
+    G -->|Từ chối/Hủy| I[Reservation CANCELLED]
+    H --> J[Khách đến quán]
+    J --> K[Staff check-in]
+    K --> L[Reservation CHECKED_IN & Bàn OCCUPIED]
+    L --> M[Gọi món & Sử dụng dịch vụ]
+    M --> N[Thanh toán hóa đơn]
+    N --> O[Reservation COMPLETED & Bàn AVAILABLE]
